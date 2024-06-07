@@ -64,7 +64,7 @@ ALTER TABLE wait_list ADD CONSTRAINT PRIMARY KEY(patron_id,book_id);
 ALTER TABLE wait_list ADD CONSTRAINT FOREIGN KEY(patron_id) REFERENCES patron_account(pa_id);
 ALTER TABLE wait_list ADD CONSTRAINT FOREIGN KEY(book_id) REFERENCES book(book_id);
   
-CREATE TABLE notificaion(
+CREATE TABLE notification(
   not_id int primary key auto_increment,
   send_at timestamp,
   type varchar(20),
@@ -72,3 +72,13 @@ CREATE TABLE notificaion(
 ALTER TABLE notification auto_increment=100;
 ALTER TABLE notification ADD CONSTRAINT FOREIGN KEY(pa_id) REFERENCES patron_account(pa_id);
 
+CREATE TABLE checkout(
+id int primary key auto_increment,
+start_time timestamp,
+end_time timestamp,
+book_copy_id int,
+pa_id int,
+is_returned boolean);
+ALTER TABLE checkout AUTO_INCREMENT=100;
+ALTER TABLE checkout ADD CONSTRAINT FOREIGN KEY(book_copy_id) REFERENCES book_copy(book_copy_id);
+ALTER TABLE checkout ADD CONSTRAINT FOREIGN KEY(pa_id) REFERENCES patron_account(pa_id);
